@@ -1,18 +1,21 @@
 {
-  "name": "starter-node-package",
+  "name": "vite-plugin-koa-mock",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@7.27.0",
-  "description": "A starter template for Node.js package.",
+  "description": "Serve mock API with Koa.js in Vite project.",
   "author": "mys1024",
   "license": "MIT",
-  "homepage": "https://github.com/mys1024/starter-node-package#readme",
+  "homepage": "https://github.com/mys1024/vite-plugin-koa-mock#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mys1024/starter-node-package.git"
+    "url": "https://github.com/mys1024/vite-plugin-koa-mock.git"
   },
   "keywords": [
-    "template"
+    "vite",
+    "plugin",
+    "koa.js",
+    "mock"
   ],
   "exports": {
     ".": {
