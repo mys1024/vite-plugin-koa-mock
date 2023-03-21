@@ -1,10 +1,19 @@
 import type { Plugin } from 'vite'
-import Koa from 'koa'
+import type Koa from 'koa'
 
-export const app = new Koa()
-app.listen(9719)
+export default (
+  config: {
+    app: Koa
+    port?: number
+  },
+): Plugin => {
+  const {
+    app,
+    port = 9719,
+  } = config
 
-export default (): Plugin => {
+  app.listen(port)
+
   return {
     name: 'vite-plugin-koa-mock',
     config: () => ({
