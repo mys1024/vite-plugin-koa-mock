@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite'
-import KoaMock from '../dist/index'
+import KoaMock from '../src/index'
 
-import { app } from './mock'
+import './mock/index'
 
 export default defineConfig({
   plugins: [
-    KoaMock(app),
+    KoaMock({
+      port: 9719,
+      proxyKeys: ['/api'],
+    }),
   ],
 })

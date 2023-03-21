@@ -3,7 +3,9 @@
     "source.fixAll.eslint": true
   },
   "cSpell.words": [
+    "antfu",
     "changelogithub",
+    "kolorist",
     "pnpm",
     "pnpx",
     "tsup"

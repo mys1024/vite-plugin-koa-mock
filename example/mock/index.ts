@@ -1,7 +1,11 @@
-import Koa from 'koa'
+import Router from '@koa/router'
+import { app } from '../../src/index'
 
-export const app = new Koa()
+const router = new Router()
 
-app.use((ctx) => {
+router.get('/api/foo', (ctx) => {
   ctx.body = 'bar'
 })
+
+app.use(router.routes())
+app.use(router.allowedMethods())
