@@ -1,6 +1,6 @@
 # vite-plugin-koa-mock
 
-Serve mock API with Koa.js in Vite projects.
+Serve mock API with **Koa.js** in **Vite** projects.
 
 ![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/logger.png)
 
@@ -12,7 +12,7 @@ npm install -D vite-plugin-koa-mock
 
 ## Usage
 
-mock/index.js:
+Create `mock/index.js` and write mock API:
 
 ```javascript
 import { app } from 'vite-plugin-koa-mock'
@@ -22,7 +22,7 @@ router.use('/api/foo', (ctx) => {
 })
 ```
 
-vite.config.js:
+Config `vite.config.js`:
 
 ```javascript
 import { defineConfig } from 'vite'
@@ -32,21 +32,67 @@ import './mock/index' // necessary
 
 export default defineConfig({
   plugins: [
-    KoaMock({
-      // mock server's port
-      port: 9719,
-      // keys of vite's server.proxy, see: https://vitejs.dev/config/server-options.html#server-proxy
-      proxyKeys: ['/api'], 
-    }),
+    KoaMock({ proxyKeys: ['/api'] }),
   ],
 })
 ```
 
-src/main.js:
+Send requests in your website code:
 
 ```javascript
 const res = await fetch('/api/foo')
 console.log(await res.text()) // -> bar
+```
+
+## Options
+
+```typescript
+import type { Options as CorsOptions } from '@koa/cors'
+
+export interface KoaMockOptions {
+  /**
+   * The port of mock server.
+   */
+  port?: number
+
+  /**
+   * Keys for vite's configuration `server.proxy`.
+   * @see https://vitejs.dev/config/server-options.html#server-proxy
+   */
+  proxyKeys?: string[]
+
+  /**
+   * Whether to enable internal logger.
+   */
+  logger?: boolean
+
+  /**
+   * Whether to enable internal CORS middleware.
+   * You can configure the CORS middleware by setting an options object.
+   * @see https://github.com/koajs/cors#corsoptions
+   */
+  cors?: boolean | CorsOptions
+}
+```
+
+## Koa middleware
+
+The variable `app` we imported in `mock/index.js` is a Koa instance, so we can set the Koa middleware you need for this instance, such as `@koa/router`, `koa-bodyparser`, and so on.
+
+Example with `@koa/router`:
+
+```javascript
+import Router from '@koa/router'
+import { app } from 'vite-plugin-koa-mock'
+
+const router = new Router()
+
+router.get('/api/foo', (ctx) => {
+  ctx.body = 'bar'
+})
+
+app.use(router.routes())
+app.use(router.allowedMethods())
 ```
 
 ## License

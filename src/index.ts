@@ -1,10 +1,10 @@
 import type { Plugin, ProxyOptions } from 'vite'
 import type { Middleware } from 'koa'
-import type { Options as CorsOptions } from '@koa/cors'
 import Koa from 'koa'
 import cors from '@koa/cors'
 import { blue, bold, dim, green } from 'kolorist'
 
+import type { KoaMockOptions } from './types'
 import logger from './logger'
 
 export const app = new Koa()
@@ -25,12 +25,7 @@ function useUserMiddleware() {
 }
 
 export default (
-  config: {
-    port?: number
-    proxyKeys?: string[]
-    logger?: boolean
-    cors?: boolean | CorsOptions
-  } = {},
+  options: KoaMockOptions = {},
 ): Plugin => {
   // options
   const {
@@ -38,7 +33,7 @@ export default (
     proxyKeys = [],
     logger: enableLogger = true,
     cors: enableCors = true,
-  } = config
+  } = options
 
   // use internal middleware
   if (enableLogger)
@@ -52,7 +47,7 @@ export default (
   // start to listen
   const server = app.listen(port)
 
-  // config vite's server.proxy
+  // configure vite's server.proxy
   const proxyOptions = {
     target: `http://localhost:${port}`,
     changeOrigin: true,
