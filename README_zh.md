@@ -1,20 +1,20 @@
 # vite-plugin-koa-mock
 
-English | [中文](./README_zh.md)
+[English](./README.md) | 中文
 
-Serve mock API with **Koa.js** in **Vite** projects.
+使用 **Koa.js** 为你的 **Vite** 项目提供模拟接口。
 
 ![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/logger.png)
 
-## Install
+## 安装
 
 ```shell
 npm install -D vite-plugin-koa-mock
 ```
 
-## Usage
+## 使用方法
 
-Create `mock/index.js` and write mock API:
+创建 `mock/index.js` 并编写模拟接口:
 
 ```javascript
 import { app } from 'vite-plugin-koa-mock'
@@ -24,13 +24,13 @@ router.use('/api/foo', (ctx) => {
 })
 ```
 
-Config `vite.config.js`:
+配置 `vite.config.js`:
 
 ```javascript
 import { defineConfig } from 'vite'
 import KoaMock from 'vite-plugin-koa-mock'
 
-import './mock/index' // necessary
+import './mock/index' // 必要的
 
 export default defineConfig({
   plugins: [
@@ -39,49 +39,49 @@ export default defineConfig({
 })
 ```
 
-Send requests in your application code:
+在你的应用代码中发送请求:
 
 ```javascript
 const res = await fetch('/api/foo')
 console.log(await res.text()) // -> bar
 ```
 
-## Options
+## 配置项
 
 ```typescript
 import type { Options as CorsOptions } from '@koa/cors'
 
 export interface KoaMockOptions {
   /**
-   * The port of mock server.
+   * 模拟服务器的端口。
    */
   port?: number
 
   /**
-   * Keys for Vite's configuration `server.proxy`.
+   * 用于配置 Vite 配置项 `server.proxy` 的键值数组。
    * @see https://vitejs.dev/config/server-options.html#server-proxy
    */
   proxyKeys?: string[]
 
   /**
-   * Whether to enable builtin logger middleware.
+   * 是否启用内置的日志中间件。
    */
   logger?: boolean
 
   /**
-   * Whether to enable builtin CORS middleware.
-   * You can configure the CORS middleware by setting an options object.
+   * 是否启用内置的 CORS 中间件。
+   * 你可以设置一个选项对象来配置这个 CORS 中间件。
    * @see https://github.com/koajs/cors#corsoptions
    */
   cors?: boolean | CorsOptions
 }
 ```
 
-## Koa middleware
+## Koa 中间件
 
-The variable `app` we imported in `mock/index.js` is a Koa instance, so we can set the Koa middleware you need for this instance, such as `@koa/router`, `koa-bodyparser`, and so on.
+我们在 `mock/index.js` 中导入的变量 `app` 是一个 Koa 实例，因此我们可以为这个实例设置我们所需的 Koa 中间件，例如 `@koa/router`、`koa-bodyparser` 等等。
 
-Example with `@koa/router`:
+这是一个使用 `@koa/router` 的例子:
 
 ```javascript
 import Router from '@koa/router'

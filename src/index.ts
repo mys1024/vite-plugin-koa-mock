@@ -9,7 +9,7 @@ import logger from './logger'
 
 export const app = new Koa()
 
-// to ensure that internal middleware is used before using user middleware
+// to ensure that builtin middleware is used before using user middleware
 const _use = app.use.bind(app)
 const userMiddleware: Middleware[] = []
 // @ts-expect-error it's ok
@@ -35,7 +35,7 @@ export default (
     cors: enableCors = true,
   } = options
 
-  // use internal middleware
+  // use builtin middleware
   if (enableLogger)
     _use(logger())
   if (enableCors)
@@ -47,7 +47,7 @@ export default (
   // start to listen
   const server = app.listen(port)
 
-  // configure vite's server.proxy
+  // configure Vite's server.proxy
   const proxyOptions = {
     target: `http://localhost:${port}`,
     changeOrigin: true,

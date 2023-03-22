@@ -7,18 +7,18 @@ export interface KoaMockOptions {
   port?: number
 
   /**
-   * Keys for vite's configuration `server.proxy`.
+   * Keys for Vite's configuration `server.proxy`.
    * @see https://vitejs.dev/config/server-options.html#server-proxy
    */
   proxyKeys?: string[]
 
   /**
-   * Whether to enable internal logger.
+   * Whether to enable builtin logger middleware.
    */
   logger?: boolean
 
   /**
-   * Whether to enable internal CORS middleware.
+   * Whether to enable builtin CORS middleware.
    * You can configure the CORS middleware by setting an options object.
    * @see https://github.com/koajs/cors#corsoptions
    */
