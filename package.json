@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@7.30.0",
-  "description": "Serve mock API with Koa.js in Vite project.",
+  "description": "Serve mock API with Koa.js in Vite projects.",
   "author": "mys1024",
   "license": "MIT",
   "homepage": "https://github.com/mys1024/vite-plugin-koa-mock#readme",

@@ -1,6 +1,6 @@
 # vite-plugin-koa-mock
 
-Serve mock API with Koa.js in Vite project.
+Serve mock API with Koa.js in Vite projects.
 
 ## Usage
 
