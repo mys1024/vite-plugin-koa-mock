@@ -2,6 +2,12 @@
 
 Serve mock API with Koa.js in Vite projects.
 
+## Install
+
+```shell
+npm install -D vite-plugin-koa-mock
+```
+
 ## Usage
 
 mock/index.js:
