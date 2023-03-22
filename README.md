@@ -2,6 +2,8 @@
 
 Serve mock API with Koa.js in Vite projects.
 
+![logger](./images/logger.png)
+
 ## Install
 
 ```shell
