@@ -2,7 +2,7 @@
 
 Serve mock API with Koa.js in Vite projects.
 
-![logger](./images/logger.png)
+![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/logger.png)
 
 ## Install
 
