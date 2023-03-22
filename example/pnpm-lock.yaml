@@ -5,14 +5,14 @@ specifiers:
   '@types/koa__router': ^12.0.0
   typescript: ^4.9.5
   vite: ^4.2.1
-  vite-plugin-koa-mock: ^0.9.0
+  vite-plugin-koa-mock: ^0.9.5
 
 devDependencies:
   '@koa/router': 12.0.0
   '@types/koa__router': 12.0.0
   typescript: 4.9.5
   vite: 4.2.1
-  vite-plugin-koa-mock: 0.9.0
+  vite-plugin-koa-mock: 0.9.5
 
 packages:
 
@@ -744,8 +744,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-plugin-koa-mock/0.9.0:
-    resolution: {integrity: sha512-KW4Ltkif+5SLVuyycqQ8jiUC0Fw8AZNklp674tz735qfHOhVAi539VQLCOyGk2g9xSTqeDuaT9DvhMSRakHZug==}
+  /vite-plugin-koa-mock/0.9.5:
+    resolution: {integrity: sha512-+ejirMphoQ1x9IvME1mFd/hWmuJa6qCQob1MJo5InEB/rhHIZgZpcdkfWYnIjUAVgaDFmEyWg75yTNo7YDz8hw==}
     dependencies:
       '@koa/cors': 4.0.0
       koa: 2.14.1
