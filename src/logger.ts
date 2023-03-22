@@ -1,5 +1,5 @@
 import type { Middleware } from 'koa'
-import { green } from 'kolorist'
+import { bold, green } from 'kolorist'
 
 import { log } from './utils'
 
@@ -8,7 +8,7 @@ export default (): Middleware => {
     await next()
     log([
       ctx.response.status,
-      ctx.method,
+      bold(ctx.method),
       green(ctx.url),
     ].join(' '))
   }

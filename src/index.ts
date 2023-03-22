@@ -3,7 +3,7 @@ import type { Middleware } from 'koa'
 import type { Options as CorsOptions } from '@koa/cors'
 import Koa from 'koa'
 import cors from '@koa/cors'
-import { blue, bold, green } from 'kolorist'
+import { blue, bold, dim, green } from 'kolorist'
 
 import logger from './logger'
 
@@ -74,7 +74,7 @@ export default (
       const _printUrls = devServer.printUrls
       devServer.printUrls = () => {
         _printUrls()
-        console.log(`  ${green('➜')}  ${bold('Mock')}: ${blue(`http://localhost:${port}/`)}`)
+        console.log(`  ${dim(green('➜'))}  ${bold('Mock')}: ${blue(`http://localhost:${port}/`)}`)
       }
       const _restart = devServer.restart
       devServer.restart = async (forceOptimize?: boolean) => {
