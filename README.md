@@ -33,8 +33,10 @@ import './mock/index' // necessary
 export default defineConfig({
   plugins: [
     KoaMock({
-      port: 9719, // mock server's port
-      proxyKeys: ['/api'], // config vite's server.proxy, see: https://vitejs.dev/config/server-options.html#server-proxy
+      // mock server's port
+      port: 9719,
+      // keys of vite's server.proxy, see: https://vitejs.dev/config/server-options.html#server-proxy
+      proxyKeys: ['/api'], 
     }),
   ],
 })
