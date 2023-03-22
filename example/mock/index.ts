@@ -1,5 +1,5 @@
 import Router from '@koa/router'
-import { app } from '../../src/index'
+import { app } from 'vite-plugin-koa-mock'
 
 const router = new Router()
 

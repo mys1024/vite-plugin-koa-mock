@@ -1,8 +1,6 @@
 const app = document.querySelector<HTMLDivElement>('#app') as HTMLDivElement
 
-app.innerHTML = `
-<div></div>
-`
+app.innerHTML = '<div></div>'
 
 setInterval(async () => {
   const res = await fetch('/api/foo')

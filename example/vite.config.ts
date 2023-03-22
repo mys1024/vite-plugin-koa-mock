@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import KoaMock from '../src/index'
+import KoaMock from 'vite-plugin-koa-mock'
 
 import './mock/index'
 
