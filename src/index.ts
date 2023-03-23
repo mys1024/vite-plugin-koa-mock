@@ -8,16 +8,16 @@ import bodyParser from 'koa-bodyparser'
 import type { KoaMockOptions } from './types'
 import logger from './logger'
 
-export const app = new Koa()
+const koaApp = new Koa()
 
 // to ensure that builtin middleware is used before using user middleware
-const _use = app.use.bind(app)
+const _use = koaApp.use.bind(koaApp)
 const userMiddleware: Middleware[] = []
 // @ts-expect-error it's ok
-app.use = (middleware) => {
+koaApp.use = (middleware) => {
   // @ts-expect-error it's ok
   userMiddleware.push(middleware)
-  return app
+  return koaApp
 }
 
 function useUserMiddleware() {
@@ -55,7 +55,7 @@ function createPlugin(options: KoaMockOptions = {}): Plugin {
   useUserMiddleware()
 
   // start to listen
-  const server = app.listen(port)
+  const server = koaApp.listen(port)
 
   // configure Vite's server.proxy
   const proxyOptions = {
@@ -95,4 +95,10 @@ function createPlugin(options: KoaMockOptions = {}): Plugin {
   }
 }
 
+export type { Middleware } from 'koa'
+export type { Options as CorsOptions } from '@koa/cors'
+export { default as Router } from '@koa/router'
+
+export type { KoaMockOptions } from './types'
+export const app = koaApp
 export default createPlugin
