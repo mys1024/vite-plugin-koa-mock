@@ -79,7 +79,7 @@ function createPlugin(options: KoaMockOptions = {}): Plugin {
       const _printUrls = devServer.printUrls
       devServer.printUrls = () => {
         _printUrls()
-        console.log(`  ${dim(green('➜'))}  ${bold('Mock')}: ${blue(`http://localhost:${port}/`)}`)
+        console.log(`  ${dim(green('➜'))}  ${dim(bold('Mock'))}: ${blue(`http://localhost:${port}/`)}`)
       }
       const _restart = devServer.restart
       devServer.restart = async (forceOptimize?: boolean) => {
