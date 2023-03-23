@@ -27,6 +27,14 @@ function useUserMiddleware() {
 export default (
   options: KoaMockOptions = {},
 ): Plugin => {
+  // enabled only in development mode
+  if (process.env.NODE_ENV !== 'development') {
+    return {
+      name: 'vite-plugin-koa-mock',
+      apply: () => false,
+    }
+  }
+
   // options
   const {
     port = 9719,
