@@ -4,7 +4,7 @@
 
 使用 **Koa.js** 为你的 **Vite** 项目提供模拟接口。
 
-![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/logger.png)
+![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/cover.png)
 
 ## 安装
 

@@ -4,7 +4,7 @@ English | [中文](./README_zh.md)
 
 Serve mock API with **Koa.js** in **Vite** projects.
 
-![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/logger.png)
+![logger](https://raw.githubusercontent.com/mys1024/vite-plugin-koa-mock/main/images/cover.png)
 
 ## Install
 
