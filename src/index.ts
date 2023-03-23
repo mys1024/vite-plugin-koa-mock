@@ -84,6 +84,11 @@ export default (
         await new Promise<void>(resolve => server.close(() => resolve()))
         await _restart(forceOptimize)
       }
+      const _close = devServer.close
+      devServer.close = async () => {
+        await new Promise<void>(resolve => server.close(() => resolve()))
+        await _close()
+      }
     },
   }
 }
