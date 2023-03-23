@@ -54,17 +54,20 @@ import type { Options as CorsOptions } from '@koa/cors'
 export interface KoaMockOptions {
   /**
    * 模拟服务器的端口。
+   * @default 9719
    */
   port?: number
 
   /**
    * 用于配置 Vite 配置项 `server.proxy` 的键值数组。
    * @see https://vitejs.dev/config/server-options.html#server-proxy
+   * @default []
    */
   proxyKeys?: string[]
 
   /**
    * 是否启用内置的日志中间件。
+   * @default true
    */
   logger?: boolean
 
@@ -72,20 +75,27 @@ export interface KoaMockOptions {
    * 是否启用内置的 CORS 中间件。
    * 你可以设置一个选项对象来配置这个 CORS 中间件。
    * @see https://github.com/koajs/cors#corsoptions
+   * @default true
    */
   cors?: boolean | CorsOptions
+
+  /**
+   * 是否启用内置的 body 解析中间件。
+   * @see https://github.com/koajs/bodyparser
+   * @default true
+   */
+  bodyParser?: boolean
 }
 ```
 
 ## Koa 中间件
 
-我们在 `mock/index.js` 中导入的变量 `app` 是一个 Koa 实例，因此我们可以为这个实例设置我们所需的 Koa 中间件，例如 `@koa/router`、`koa-bodyparser` 等等。
+我们在 `mock/index.js` 中导入的变量 `app` 是一个 Koa 实例，因此我们可以为这个实例设置我们所需的 Koa 中间件。
 
-这是一个使用 `@koa/router` 的例子:
+`vite-plugin-koa-router` 将 `@koa/router` 导出为 `Router`。这是一个使用路由中间件的例子：
 
 ```javascript
-import Router from '@koa/router'
-import { app } from 'vite-plugin-koa-mock'
+import { Router, app } from 'vite-plugin-koa-mock'
 
 const router = new Router()
 
