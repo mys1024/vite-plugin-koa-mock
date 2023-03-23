@@ -23,4 +23,10 @@ export interface KoaMockOptions {
    * @see https://github.com/koajs/cors#corsoptions
    */
   cors?: boolean | CorsOptions
+
+  /**
+   * Whether to enable builtin body parser middleware.
+   * @see https://github.com/koajs/bodyparser
+   */
+  bodyParser?: boolean
 }

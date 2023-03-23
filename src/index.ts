@@ -1,8 +1,9 @@
 import type { Plugin, ProxyOptions } from 'vite'
 import type { Middleware } from 'koa'
+import { blue, bold, dim, green } from 'kolorist'
 import Koa from 'koa'
 import cors from '@koa/cors'
-import { blue, bold, dim, green } from 'kolorist'
+import bodyParser from 'koa-bodyparser'
 
 import type { KoaMockOptions } from './types'
 import logger from './logger'
@@ -24,9 +25,7 @@ function useUserMiddleware() {
     _use(middleware)
 }
 
-export default (
-  options: KoaMockOptions = {},
-): Plugin => {
+function createPlugin(options: KoaMockOptions = {}): Plugin {
   // enabled only in development mode
   if (process.env.NODE_ENV !== 'development') {
     return {
@@ -41,6 +40,7 @@ export default (
     proxyKeys = [],
     logger: enableLogger = true,
     cors: enableCors = true,
+    bodyParser: enableBodyParser = true,
   } = options
 
   // use builtin middleware
@@ -48,6 +48,8 @@ export default (
     _use(logger())
   if (enableCors)
     _use(cors(typeof enableCors === 'boolean' ? undefined : enableCors))
+  if (enableBodyParser)
+    _use(bodyParser())
 
   // use user middleware
   useUserMiddleware()
@@ -92,3 +94,5 @@ export default (
     },
   }
 }
+
+export default createPlugin
