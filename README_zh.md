@@ -90,7 +90,7 @@ export interface KoaMockOptions {
 
 ## Koa 中间件
 
-我们在 `mock/index.js` 中导入的变量 `app` 是一个 Koa 实例，因此我们可以为这个实例设置我们所需的 Koa 中间件。
+在 `mock/index.js` 中导入的变量 `app` 是一个 Koa 实例，因此你可以为这个实例设置你所需的 Koa 中间件。
 
 `vite-plugin-koa-router` 将 `@koa/router` 导出为 `Router`。这是一个使用路由中间件的例子：
 

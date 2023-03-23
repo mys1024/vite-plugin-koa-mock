@@ -90,13 +90,12 @@ export interface KoaMockOptions {
 
 ## Koa middleware
 
-The variable `app` we imported in `mock/index.js` is a Koa instance, so we can set the Koa middleware you need for it.
+The variable `app` imported in `mock/index.js` is a Koa instance, so you can set the Koa middleware you need for the app.
 
 `vite-plugin-koa-router` export `@koa/router` as `Router`. This is an example of using router middleware:
 
 ```javascript
-import Router from '@koa/router'
-import { app } from 'vite-plugin-koa-mock'
+import { Router, app } from 'vite-plugin-koa-mock'
 
 const router = new Router()
 
