@@ -19,7 +19,7 @@ Create `mock/index.js` and write mock API:
 ```javascript
 import { app } from 'vite-plugin-koa-mock'
 
-router.use('/api/foo', (ctx) => {
+app.use((ctx) => {
   ctx.body = 'bar'
 })
 ```

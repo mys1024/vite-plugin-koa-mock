@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-koa-mock",
   "type": "module",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "packageManager": "pnpm@7.30.0",
   "description": "Serve mock API with Koa.js in Vite projects.",
   "author": "mys1024",

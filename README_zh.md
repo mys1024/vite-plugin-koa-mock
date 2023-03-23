@@ -19,7 +19,7 @@ npm install -D vite-plugin-koa-mock
 ```javascript
 import { app } from 'vite-plugin-koa-mock'
 
-router.use('/api/foo', (ctx) => {
+app.use((ctx) => {
   ctx.body = 'bar'
 })
 ```
