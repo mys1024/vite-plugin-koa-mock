@@ -7,10 +7,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@koa/router": "^12.0.0",
-    "@types/koa__router": "^12.0.0",
     "typescript": "^4.9.5",
     "vite": "^4.2.1",
-    "vite-plugin-koa-mock": "^0.9.5"
+    "vite-plugin-koa-mock": "^0.9.9"
   }
 }
