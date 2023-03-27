@@ -8,7 +8,15 @@ import bodyParser from 'koa-bodyparser'
 import type { KoaMockOptions } from './types'
 import logger from './logger'
 
-const koaApp = new Koa()
+const koaApp = new Koa<
+  {},
+  {
+    request: {
+      body?: unknown
+      rawBody: string
+    }
+  }
+>()
 
 // to ensure that builtin middleware is used before using user middleware
 const _use = koaApp.use.bind(koaApp)
