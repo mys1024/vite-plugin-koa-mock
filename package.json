@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --dts --format cjs,esm --clean",
+    "build": "tsup src/index.ts --dts --format cjs,esm --clean && node scripts/inject_type.js",
     "test": "vitest",
     "test:cover": "vitest --coverage",
     "lint": "eslint .",
