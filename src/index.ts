@@ -131,6 +131,7 @@ async function loadRouterMiddleware(mockDir: string) {
 
 /* -------------------------------------------------- exports -------------------------------------------------- */
 
+export type { Middleware } from 'koa'
 export type { Options as CorsOptions } from '@koa/cors'
 export type { KoaMockOptions } from './types'
 
