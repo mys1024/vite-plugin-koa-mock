@@ -1,5 +1,8 @@
 # vite-plugin-koa-mock
 
+[![npm-version](https://img.shields.io/npm/v/vite-plugin-koa-mock?style=flat-square&color=%23cb3837)](https://www.npmjs.com/package/vite-plugin-koa-mock)
+[![license](https://img.shields.io/github/license/mys1024/vite-plugin-koa-mock?&style=flat-square)](./LICENSE)
+
 English | [中文](./README_zh.md)
 
 Serve mock API with **Koa.js** in **Vite** projects.
