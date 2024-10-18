@@ -2,6 +2,12 @@ import type { Options as CorsOptions } from '@koa/cors'
 
 export interface KoaMockOptions {
   /**
+   * The dir for mock APIs.
+   * @default './mock'
+   */
+  mockDir?: string
+
+  /**
    * The port of mock server.
    * @default 9719
    */
@@ -10,7 +16,7 @@ export interface KoaMockOptions {
   /**
    * Keys for Vite's configuration `server.proxy`.
    * @see https://vitejs.dev/config/server-options.html#server-proxy
-   * @default []
+   * @default ['/api']
    */
   proxyKeys?: string[]
 

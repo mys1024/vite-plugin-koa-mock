@@ -14,36 +14,36 @@ npm install -D vite-plugin-koa-mock
 
 ## Usage
 
-Create `mock/index.js` and write mock API:
-
-```javascript
-import { app } from 'vite-plugin-koa-mock'
-
-app.use((ctx) => {
-  ctx.body = 'bar'
-})
-```
-
 Config `vite.config.js`:
 
 ```javascript
 import { defineConfig } from 'vite'
 import KoaMock from 'vite-plugin-koa-mock'
 
-import './mock/index' // necessary
-
 export default defineConfig({
   plugins: [
-    KoaMock({ proxyKeys: ['/api'] }),
+    KoaMock({
+      mockDir: './mock',
+      proxyKeys: ['/api'],
+    }),
   ],
 })
 ```
 
-Send requests in your application code:
+Create `mock/index.js` or `mock/index.ts` with your mock APIs:
 
 ```javascript
-const res = await fetch('/api/foo')
-console.log(await res.text()) // -> bar
+import { Router } from 'vite-plugin-koa-mock'
+
+export const router = new Router()
+
+router.get('/api/foo', (ctx) => {
+  ctx.body = 'bar'
+})
+
+router.get('/api/bar', (ctx) => {
+  ctx.body = 'foo'
+})
 ```
 
 ## Options
@@ -53,7 +53,13 @@ import type { Options as CorsOptions } from '@koa/cors'
 
 export interface KoaMockOptions {
   /**
-   * The port of mock server.
+   * The dir for mock APIs.
+   * @default './mock'
+   */
+  mockDir?: string
+
+  /**
+   * The port for mock server.
    * @default 9719
    */
   port?: number
@@ -61,7 +67,7 @@ export interface KoaMockOptions {
   /**
    * Keys for Vite's configuration `server.proxy`.
    * @see https://vitejs.dev/config/server-options.html#server-proxy
-   * @default []
+   * @default ['/api']
    */
   proxyKeys?: string[]
 
@@ -88,25 +94,7 @@ export interface KoaMockOptions {
 }
 ```
 
-## Koa middleware
-
-The variable `app` imported in `mock/index.js` is a Koa instance, so you can set the Koa middleware you need for the app.
-
-`vite-plugin-koa-router` export `@koa/router` as `Router`. This is an example of using router middleware:
-
-```javascript
-import { Router, app } from 'vite-plugin-koa-mock'
-
-const router = new Router()
-
-router.get('/api/foo', (ctx) => {
-  ctx.body = 'bar'
-})
-
-app.use(router.routes())
-app.use(router.allowedMethods())
-```
-
 ## License
 
-MIT
+[MIT](./LICENSE) License &copy; 2024-PRESENT
+[mys1024](https://github.com/mys1024)

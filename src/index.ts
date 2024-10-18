@@ -1,12 +1,19 @@
-import type { Plugin, ProxyOptions } from 'vite'
-import type { Middleware } from 'koa'
+import { normalize, resolve } from 'pathe'
 import { blue, bold, dim, green } from 'kolorist'
+import { importx } from 'importx'
+import chokidar from 'chokidar'
 import Koa from 'koa'
+import compose from 'koa-compose'
+import Router from '@koa/router'
 import cors from '@koa/cors'
 import bodyParser from 'koa-bodyparser'
+import type { Plugin, ProxyOptions } from 'vite'
 
-import type { KoaMockOptions } from './types'
 import logger from './logger'
+import { log } from './utils'
+import type { KoaMockOptions } from './types'
+
+/* -------------------------------------------------- types -------------------------------------------------- */
 
 declare module 'koa' {
   interface Request {
@@ -15,24 +22,19 @@ declare module 'koa' {
   }
 }
 
-const koaApp = new Koa()
+/* -------------------------------------------------- plugin -------------------------------------------------- */
 
-// to ensure that builtin middleware is used before using user middleware
-const _use = koaApp.use.bind(koaApp)
-const userMiddleware: Middleware[] = []
-// @ts-expect-error it's ok
-koaApp.use = (middleware) => {
-  // @ts-expect-error it's ok
-  userMiddleware.push(middleware)
-  return koaApp
-}
+async function createPlugin(options: KoaMockOptions = {}): Promise<Plugin> {
+  // options
+  const {
+    mockDir = './mock',
+    port = 9719,
+    proxyKeys = ['/api'],
+    logger: enableLogger = true,
+    cors: enableCors = true,
+    bodyParser: enableBodyParser = true,
+  } = options
 
-function useUserMiddleware() {
-  for (const middleware of userMiddleware)
-    _use(middleware)
-}
-
-function createPlugin(options: KoaMockOptions = {}): Plugin {
   // enabled only in development mode
   if (process.env.NODE_ENV !== 'development') {
     return {
@@ -41,28 +43,35 @@ function createPlugin(options: KoaMockOptions = {}): Plugin {
     }
   }
 
-  // options
-  const {
-    port = 9719,
-    proxyKeys = [],
-    logger: enableLogger = true,
-    cors: enableCors = true,
-    bodyParser: enableBodyParser = true,
-  } = options
+  // new koa app
+  const app = new Koa()
 
   // use builtin middleware
   if (enableLogger)
-    _use(logger())
+    app.use(logger())
   if (enableCors)
-    _use(cors(typeof enableCors === 'boolean' ? undefined : enableCors))
+    app.use(cors(typeof enableCors === 'boolean' ? undefined : enableCors))
   if (enableBodyParser)
-    _use(bodyParser())
+    app.use(bodyParser())
 
-  // use user middleware
-  useUserMiddleware()
+  // use mock router
+  let routerMiddleware = await loadRouterMiddleware(mockDir)
+  const watcher = chokidar.watch(mockDir).on('all', async (event, path) => {
+    if (['add', 'change', 'unlink'].includes(event)) {
+      if (event === 'change')
+        log(`${normalize(path)} changed`)
+      routerMiddleware = await loadRouterMiddleware(mockDir)
+    }
+  })
+  app.use((ctx, next) => {
+    if (routerMiddleware)
+      routerMiddleware(ctx, next)
+    else
+      next()
+  })
 
   // start to listen
-  const server = koaApp.listen(port)
+  const server = app.listen(port)
 
   // configure Vite's server.proxy
   const proxyOptions = {
@@ -91,21 +100,39 @@ function createPlugin(options: KoaMockOptions = {}): Plugin {
       const _restart = devServer.restart
       devServer.restart = async (forceOptimize?: boolean) => {
         await new Promise<void>(resolve => server.close(() => resolve()))
+        await watcher.close()
         await _restart(forceOptimize)
       }
       const _close = devServer.close
       devServer.close = async () => {
         await new Promise<void>(resolve => server.close(() => resolve()))
+        await watcher.close()
         await _close()
       }
     },
   }
 }
 
-export type { Middleware } from 'koa'
-export type { Options as CorsOptions } from '@koa/cors'
-export { default as Router } from '@koa/router'
+/* -------------------------------------------------- utils -------------------------------------------------- */
 
+async function loadRouterMiddleware(mockDir: string) {
+  try {
+    const mod = await importx('./index', {
+      parentURL: resolve(mockDir),
+      cache: false,
+    })
+    const router = mod.router
+    return compose([router.routes(), router.allowedMethods()])
+  }
+  catch (err) {
+    log(new Error('Failed to load the mock dir', { cause: err }))
+  }
+}
+
+/* -------------------------------------------------- exports -------------------------------------------------- */
+
+export type { Options as CorsOptions } from '@koa/cors'
 export type { KoaMockOptions } from './types'
-export const app = koaApp
+
+export { Router }
 export default createPlugin

@@ -1,6 +1,6 @@
 import { blue, bold } from 'kolorist'
 
-export function log(message: string) {
+export function log(message: any) {
   const date = new Date()
   const h = date.getHours()
   const m = date.getMinutes()

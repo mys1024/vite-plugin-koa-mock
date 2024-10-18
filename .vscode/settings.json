@@ -1,12 +1,14 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "cSpell.words": [
     "antfu",
     "bodyparser",
     "changelogithub",
+    "importx",
     "kolorist",
+    "pathe",
     "pnpm",
     "pnpx",
     "tsup"

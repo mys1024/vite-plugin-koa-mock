@@ -1,10 +1,7 @@
-import { Router, app } from 'vite-plugin-koa-mock'
+import { Router } from '../../src/index'
 
-const router = new Router()
+export const router = new Router()
 
 router.get('/api/foo', (ctx) => {
   ctx.body = 'bar'
 })
-
-app.use(router.routes())
-app.use(router.allowedMethods())
